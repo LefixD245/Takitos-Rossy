@@ -1,462 +1,546 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>Menú Restaurante – Interactivo</title>
-<style>
-    body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(rgba(30, 30, 40, 0.8), rgba(20, 20, 30, 0.8)), url('fondo.jpg') center/cover fixed;
-        color: #f0f0f5;
-        padding: 2rem 1rem;
-        text-align: center;
-    }
-
-    header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    header img {
-        width: 60px;
-        height: 60px;
-        object-fit: contain;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    }
-
-    h1 {
-        font-size: 3rem;
-        margin: 0;
-        letter-spacing: 2px;
-        text-shadow: 0 2px 8px #222;
-    }
-
-    .top-section {
-        display: flex;
-        justify-content: center;
-        gap: 4rem;
-        align-items: flex-start;
-        margin-bottom: 2.5rem;
-        flex-wrap: wrap;
-    }
-
-    .nav {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-    }
-
-    .nav button {
-        padding: 1rem 2.5rem;
-        border: 2px solid rgba(255, 255, 255, 0.6);
-        background: rgba(40, 40, 55, 0.7);
-        color: #eaeaff;
-        font-weight: 700;
-        border-radius: 35px;
-        cursor: pointer;
-        box-shadow: 0 0 10px rgba(255,255,255,0.2);
-        transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        font-size: 1rem;
-        min-width: 120px;
-    }
-
-    .nav button.active,
-    .nav button:hover {
-        background: rgba(200, 255, 200, 0.15);
-        border-color: #ffaaaa;
-        box-shadow: 0 0 20px #ffaaaa;
-        color: #ffcccc;
-    }
-
-    .menu-wrap {
-        display: flex;
-        justify-content: center;
-    }
-
-    .menu {
-        display: none;
-        background: rgba(20, 20, 20, 0.75);
-        color: #ddd;
-        padding: 1.2rem 1.5rem;
-        border-radius: 15px;
-        width: 100%;
-        max-width: 560px;
-        box-sizing: border-box;
-        box-shadow: 0 0 8px 2px rgba(255, 100, 100, 0.2);
-        transition: transform 0.3s ease;
-        max-height: 60vh;
-        overflow-y: auto;
-    }
-
-    .menu.show {
-        display: block;
-        transform: scale(1);
-    }
-
-    .sm-btn,
-    .product-btn {
-        position: relative;
-        display: block;
-        width: 100%;
-        padding: 0.9rem 1.5rem;
-        margin: 0.4rem 0;
-        background: rgba(30, 30, 30, 0.85);
-        color: #ccffcc;
-        border: 1.5px solid #995555;
-        border-radius: 8px;
-        text-align: left;
-        cursor: pointer;
-        font-weight: 600;
-        box-shadow: none;
-        transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-        font-size: 1.1rem;
-    }
-
-    .sm-btn::after {
-        content: '▶';
-        position: absolute;
-        right: 18px;
-        font-weight: 700;
-        color: #cc7777;
-        transition: transform 0.3s ease, color 0.3s ease;
-        font-size: 1.2rem;
-    }
-
-    .sm-btn.active::after {
-        transform: rotate(90deg);
-        color: #ffaaaa;
-    }
-
-    .sm-btn:hover,
-    .product-btn:hover {
-        background: rgba(255, 100, 100, 0.2);
-        border-color: #f33636;
-        box-shadow: 0 0 8px 2px rgba(136, 204, 136, 0.3);
-    }
-
-    .sm-content {
-        display: none;
-        margin: 0.6rem 0 1.2rem 1.3rem;
-        flex-direction: column;
-    }
-
-    .sm-content.show {
-        display: flex;
-    }
-
-    .product-info {
-        display: none;
-        margin-top: 1.2rem;
-        background: rgba(15, 15, 15, 0.75);
-        color: #ffffff;
-        padding: 1rem 1.4rem;
-        border-radius: 12px;
-        text-align: left;
-        box-shadow: 0 0 12px 4px rgba(255, 100, 100, 0.2);
-        transition: opacity 0.4s ease;
-        max-width: 560px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .product-info.show {
-        display: block;
-    }
-
-    .info-flex {
-        display: flex;
-        gap: 1.2rem;
-        align-items: start;
-        flex-wrap: wrap;
-    }
-
-    .info-flex img {
-        width: 130px;
-        height: 130px;
-        object-fit: cover;
-        border-radius: 10px;
-        box-shadow: 0 0 10px 3px rgba(100, 200, 100, 0.15);
-        flex-shrink: 0;
-    }
-
-    .horarios {
-        background: rgba(20, 20, 20, 0.75);
-        padding: 1rem 1.5rem;
-        border-radius: 15px;
-        max-width: 560px;
-        margin: 2rem auto 0 auto;
-        color: #ddd;
-        text-align: left;
-        box-shadow: 0 0 8px 2px rgba(255, 100, 100, 0.2);
-        font-weight: 600;
-    }
-
-    .horarios h2 {
-        margin-top: 0;
-        margin-bottom: 0.8rem;
-        font-size: 1.4rem;
-        text-align: center;
-        color: #ffbbbb;
-        text-shadow: 0 0 4px #ff5555;
-    }
-
-    .horarios p {
-        margin: 0.3rem 0;
-        font-size: 1rem;
-    }
-
-    /* Responsive tweaks */
-    @media (max-width: 700px) {
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Menú Restaurante – Interactivo</title>
+    <style>
         body {
-            padding: 1rem 0.6rem;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(rgba(30, 30, 40, 0.8), rgba(20, 20, 30, 0.8)), url('fondo.jpg') center/cover fixed;
+            color: #f0f0f5;
+            padding: 2rem 1rem;
+            text-align: center;
         }
+
         header {
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        header img {
-            width: 50px;
-            height: 50px;
-        }
-        h1 {
-            font-size: 2.2rem;
-            letter-spacing: 1.5px;
-        }
-        .top-section {
-            flex-direction: column;
-            gap: 1rem;
+            display: flex;
+            justify-content: center;
             align-items: center;
-        }
-        .nav {
-            flex-wrap: wrap;
             gap: 1rem;
+            margin-bottom: 1.5rem;
         }
-        .nav button {
-            min-width: 140px;
-            font-size: 1.15rem;
-            padding: 1rem 2rem;
-            border-radius: 30px;
+
+            header img {
+                width: 60px;
+                height: 60px;
+                object-fit: contain;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px #222;
         }
+
+        .top-section {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+            .nav button {
+                padding: 1rem 2.5rem;
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                background: rgba(40, 40, 55, 0.7);
+                color: #eaeaff;
+                font-weight: 700;
+                border-radius: 35px;
+                cursor: pointer;
+                box-shadow: 0 0 10px rgba(255,255,255,0.2);
+                transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+                font-size: 1rem;
+                min-width: 120px;
+            }
+
+                .nav button.active,
+                .nav button:hover {
+                    background: rgba(200, 255, 200, 0.15);
+                    border-color: #ffaaaa;
+                    box-shadow: 0 0 20px #ffaaaa;
+                    color: #ffcccc;
+                }
+
         .menu-wrap {
+            display: flex;
             justify-content: center;
         }
+
         .menu {
-            max-width: 100%;
-            max-height: 50vh;
-            padding: 1rem;
+            display: none;
+            background: rgba(20, 20, 20, 0.75);
+            color: #ddd;
+            padding: 1.2rem 1.5rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 560px;
+            box-sizing: border-box;
+            box-shadow: 0 0 8px 2px rgba(255, 100, 100, 0.2);
+            transition: transform 0.3s ease;
+            max-height: 60vh;
+            overflow-y: auto;
         }
+
+            .menu.show {
+                display: block;
+                transform: scale(1);
+            }
+
         .sm-btn,
         .product-btn {
-            font-size: 1.15rem;
-            padding: 1rem 1.4rem;
-            margin: 0.5rem 0;
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 0.9rem 1.5rem;
+            margin: 0.4rem 0;
+            background: rgba(30, 30, 30, 0.85);
+            color: #ccffcc;
+            border: 1.5px solid #995555;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: none;
+            transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1.1rem;
         }
-        .sm-btn::after {
-            font-size: 1.3rem;
-            right: 14px;
-        }
-        .product-info {
-            max-width: 100%;
-            padding: 1rem 1rem;
-            margin: 1.5rem auto 0 auto;
-        }
-        .info-flex {
+
+            .sm-btn::after {
+                content: '▶';
+                position: absolute;
+                right: 18px;
+                font-weight: 700;
+                color: #cc7777;
+                transition: transform 0.3s ease, color 0.3s ease;
+                font-size: 1.2rem;
+            }
+
+            .sm-btn.active::after {
+                transform: rotate(90deg);
+                color: #ffaaaa;
+            }
+
+            .sm-btn:hover,
+            .product-btn:hover {
+                background: rgba(255, 100, 100, 0.2);
+                border-color: #f33636;
+                box-shadow: 0 0 8px 2px rgba(136, 204, 136, 0.3);
+            }
+
+        .sm-content {
+            display: none;
+            margin: 0.6rem 0 1.2rem 1.3rem;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
         }
-        .info-flex img {
-            width: 110px;
-            height: 110px;
-            margin-bottom: 1rem;
+
+            .sm-content.show {
+                display: flex;
+            }
+
+        .product-info {
+            display: none;
+            margin-top: 1.2rem;
+            background: rgba(15, 15, 15, 0.75);
+            color: #ffffff;
+            padding: 1rem 1.4rem;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 0 12px 4px rgba(255, 100, 100, 0.2);
+            transition: opacity 0.4s ease;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
         }
+
+            .product-info.show {
+                display: block;
+            }
+
+        .info-flex {
+            display: flex;
+            gap: 1.2rem;
+            align-items: start;
+            flex-wrap: wrap;
+        }
+
+            .info-flex img {
+                width: 130px;
+                height: 130px;
+                object-fit: cover;
+                border-radius: 10px;
+                box-shadow: 0 0 10px 3px rgba(100, 200, 100, 0.15);
+                flex-shrink: 0;
+            }
+
         .horarios {
-            max-width: 95%;
-            text-align: center;
-            font-size: 1.05rem;
-            margin: 1.5rem auto 0 auto;
+            background: rgba(20, 20, 20, 0.75);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            max-width: 560px;
+            margin: 2rem auto 0 auto;
+            color: #ddd;
+            text-align: left;
+            box-shadow: 0 0 8px 2px rgba(255, 100, 100, 0.2);
+            font-weight: 600;
         }
-        .horarios p {
-            margin: 0.25rem 0;
+
+            .horarios h2 {
+                margin-top: 0;
+                margin-bottom: 0.8rem;
+                font-size: 1.4rem;
+                text-align: center;
+                color: #ffbbbb;
+                text-shadow: 0 0 4px #ff5555;
+            }
+
+            .horarios p {
+                margin: 0.3rem 0;
+                font-size: 1rem;
+            }
+
+        /* Responsive tweaks */
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem 0.6rem;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+                header img {
+                    width: 50px;
+                    height: 50px;
+                }
+
+            h1 {
+                font-size: 2.2rem;
+                letter-spacing: 1.5px;
+            }
+
+            .top-section {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+                .nav button {
+                    min-width: 140px;
+                    font-size: 1.15rem;
+                    padding: 1rem 2rem;
+                    border-radius: 30px;
+                }
+
+            .menu-wrap {
+                justify-content: center;
+            }
+
+            .menu {
+                max-width: 100%;
+                max-height: 50vh;
+                padding: 1rem;
+            }
+
+            .sm-btn,
+            .product-btn {
+                font-size: 1.15rem;
+                padding: 1rem 1.4rem;
+                margin: 0.5rem 0;
+            }
+
+                .sm-btn::after {
+                    font-size: 1.3rem;
+                    right: 14px;
+                }
+
+            .product-info {
+                max-width: 100%;
+                padding: 1rem 1rem;
+                margin: 1.5rem auto 0 auto;
+            }
+
+            .info-flex {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+                .info-flex img {
+                    width: 110px;
+                    height: 110px;
+                    margin-bottom: 1rem;
+                }
+
+            .horarios {
+                max-width: 95%;
+                text-align: center;
+                font-size: 1.05rem;
+                margin: 1.5rem auto 0 auto;
+            }
+
+                .horarios p {
+                    margin: 0.25rem 0;
+                }
         }
-    }
-</style>
+    </style>
 </head>
 <body>
 
-<header>
-    <img src="logo.png" alt="Logo Takitos Rossy" />
-    <h1>Takitos Rossy</h1>
-</header>
+    <header>
+        <img src="logo.png" alt="Logo Takitos Rossy" />
+        <h1>Takitos Rossy</h1>
+    </header>
 
-<div class="top-section">
-    <nav class="nav">
-        <button id="entreBtn" class="active">ENTRE SEMANA</button>
-        <button id="fdsBtn">FIN DE SEMANA</button>
-    </nav>
-</div>
+    <div class="top-section">
+        <nav class="nav">
+            <button id="entreBtn" class="active">ENTRE SEMANA</button>
+            <button id="fdsBtn">FIN DE SEMANA</button>
+        </nav>
+    </div>
 
-<div class="menu-wrap">
+    <div class="menu-wrap">
 
-    <!-- ENTRE SEMANA -->
-    <div id="entreMenu" class="menu show">
+        <!-- ENTRE SEMANA -->
+        <div id="entreMenu" class="menu show">
 
-        <button class="sm-btn" data-target="desayunosSm">DESAYUNOS</button>
-        <div id="desayunosSm" class="sm-content">
-            <button class="product-btn" data-img="img/product1.jpg" data-title="Empanadas estilo Veracruz" data-desc="Empanadas de maíz, estilo Veracruz, rellenas de guisos a elección (Guisos de tacos y gorditas).">Empanadas estilo Veracruz</button>
-            <button class="product-btn" data-img="img/product2.jpg" data-title="Sopes" data-desc="Masa suave con guiso al gusto (Guisos de tacos y gorditas).">Sopes</button>
-            <button class="product-btn" data-img="img/product3.jpg" data-title="Quesadillas" data-desc="Queso fundido en tortilla calentita, acompañada de guiso al gusto (Guisos de tacos y gorditas).">Quesadillas</button>
-            <button class="product-btn" data-img="img/product4.jpg" data-title="Lonche de Barbacoa" data-desc="Torta rellena de carne deshebrada de res.">Lonche de Barbacoa</button>
+            <button class="sm-btn" data-target="desayunosSm">DESAYUNOS</button>
+            <div id="desayunosSm" class="sm-content">
+                <button class="product-btn" data-img="img/product1.jpg" data-title="Empanadas estilo Veracruz" data-desc="Empanadas de maíz, estilo Veracruz, rellenas de guisos a elección (Guisos de tacos y gorditas).">Empanadas estilo Veracruz</button>
+                <button class="product-btn" data-img="img/product2.jpg" data-title="Sopes" data-desc="Masa suave con guiso al gusto (Guisos de tacos y gorditas).">Sopes</button>
+                <button class="product-btn" data-img="img/product3.jpg" data-title="Quesadillas" data-desc="Queso fundido en tortilla calentita, acompañada de guiso al gusto (Guisos de tacos y gorditas).">Quesadillas</button>
+                <button class="product-btn" data-img="img/product4.jpg" data-title="Lonche de Barbacoa" data-desc="Torta rellena de carne deshebrada de res.">Lonche de Barbacoa</button>
 
-            <button class="sm-btn" data-target="huevosSm">Huevos al gusto</button>
-            <div id="huevosSm" class="sm-content">
-                <button class="product-btn" data-img="img/product5.jpg" data-title="Motuleños" data-desc="Huevos estrellados con tortilla semi dorada y salsa con trocitos de jamón.">Motuleños</button>
-                <button class="product-btn" data-img="img/product6.jpg" data-title="Rancheros" data-desc="Huevos estrellados con salsa a la mexicana.">Rancheros</button>
-                <button class="product-btn" data-img="img/product7.jpg" data-title="Divorciados" data-desc="Huevos estrellados en salsa roja y verde, separados por frijolitos con queso.">Divorciados</button>
-                <button class="product-btn" data-img="img/product8.jpg" data-title="Con jamón" data-desc="Huevos revueltos acompañados de trocitos de jamón.">Con jamón</button>
-                <button class="product-btn" data-img="img/product9.jpg" data-title="Con tocino" data-desc="Huevos revueltos con crujiente tocino.">Con tocino</button>
-                <button class="product-btn" data-img="img/product10.jpg" data-title="Con machaca" data-desc="Huevos revuletos con machaca tradicional.">Con machaca</button>
-                <button class="product-btn" data-img="img/product11.jpg" data-title="A la mexicana" data-desc="Huevos con jitomate, cebolla y chile.">A la mexicana</button>
+                <button class="sm-btn" data-target="huevosSm">Huevos al gusto</button>
+                <div id="huevosSm" class="sm-content">
+                    <button class="product-btn" data-img="img/product5.jpg" data-title="Motuleños" data-desc="Huevos estrellados con tortilla semi dorada y salsa con trocitos de jamón.">Motuleños</button>
+                    <button class="product-btn" data-img="img/product6.jpg" data-title="Rancheros" data-desc="Huevos estrellados con salsa a la mexicana.">Rancheros</button>
+                    <button class="product-btn" data-img="img/product7.jpg" data-title="Divorciados" data-desc="Huevos estrellados en salsa roja y verde, separados por frijolitos con queso.">Divorciados</button>
+                    <button class="product-btn" data-img="img/product8.jpg" data-title="Con jamón" data-desc="Huevos revueltos acompañados de trocitos de jamón.">Con jamón</button>
+                    <button class="product-btn" data-img="img/product9.jpg" data-title="Con tocino" data-desc="Huevos revueltos con crujiente tocino.">Con tocino</button>
+                    <button class="product-btn" data-img="img/product10.jpg" data-title="Con machaca" data-desc="Huevos revuletos con machaca tradicional.">Con machaca</button>
+                    <button class="product-btn" data-img="img/product11.jpg" data-title="A la mexicana" data-desc="Huevos con jitomate, cebolla y chile.">A la mexicana</button>
+                </div>
+
             </div>
 
+            <button class="sm-btn" data-target="tacosSm">Tacos y Gorditas (Harina y Maíz)</button>
+            <div id="tacosSm" class="sm-content">
+                <button class="product-btn" data-img="Barbacoa.png" data-title="Barbacoa" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Barbacoa</button>
+                <button class="product-btn" data-img="Deshebrada.png" data-title="Deshebrada" data-desc="Carne de Res en hebras finas y jugosas que acarician tu paladar.">Deshebrada</button>
+                <button class="product-btn" data-img="Chich.png" data-title="Chicharrón Prensado" data-desc="Chicharrón Prensado en guiso rojo, suave y sabroso como ningún otro.">Chicharrón Prensado</button>
+                <button class="product-btn" data-img="Discada.png" data-title="Discada" data-desc="Combinación de salchica, cebolla, jitomate y demás sabores por descubrir.">Discada</button>
+                <button class="product-btn" data-img="Cochinita.png" data-title="Cochinita Pibíl" data-desc="Guisado de cerdo horneado ideal para amantes del sabor.">Cochinita Pibíl</button>
+                <button class="product-btn" data-img="Asado.png" data-title="Asado de puerco" data-desc="Asado rojo de puerco al más puro estilo Saltillo.">Asado de puerco</button>
+                <button class="product-btn" data-img="Frijoles.png" data-title="Frijoles con queso" data-desc="Tradicionales Frijolitos refritos acompañados de un buen quesito para degustar.">Frijoles con queso</button>
+                <button class="product-btn" data-img="Rajas.png" data-title="Rajas con queso" data-desc="Combinación de colores mexicanos (Verde, blanco y rojo) de chile poblano y queso panela.">Rajas con queso</button>
+                <button class="product-btn" data-img="Papa.png" data-title="Guisado de papa" data-desc="Guisado de papa con mantequilla para degustar algo suave, ligero y sabroso.">Guisado de papa</button>
+                <button class="product-btn" data-img="Carnitas.png" data-title="Carnitas en salsa verde" data-desc="Trocitos de carne de puerco en salsita verde.">Carnitas en salsa verde</button>
+                <button class="product-btn" data-img="Picadillo.png" data-title="Picadillo" data-desc="Carne molina con papa, combinación de proteina y carbohidratos, ideal para niños y para mantener la figura.">Picadillo</button>
+                <button class="product-btn" data-img="Huevo.png" data-title="Huevo a la mexicana" data-desc="Sabor y colores patrios en el clásico Huevito a la mexicana para recordar nuestro orgullo con sabor.">Huevo a la mexicana</button>
+                <button class="product-btn" data-img="Nop.pn" data-title="Nopales" data-desc="Nopal clásico mexicano, sabroso y ligero para calmar el hambre de forma tranquila.">Nopales</button>
+                <!-- Agrega aquí resto de productos -->
+            </div>
+
+            <button class="sm-btn" data-target="bebidasSm">Bebidas</button>
+            <div id="bebidasSm" class="sm-content">
+
+                <button class="sm-btn" data-target="licuadosSm">Licuados</button>
+                <div id="licuadosSm" class="sm-content">
+                    <button class="product-btn" data-img="img/LicuaPlat.jpg" data-title="Licuado de plátano" data-desc="Licuado cremoso de plátano.">Licuado de plátano</button>
+                    <button class="product-btn" data-img="img/LicuaFre.png" data-title="Licuado de fresa" data-desc="Licuado fresco de fresa.">Licuado de fresa</button>
+                    <button class="product-btn" data-img="img/product15.jpg" data-title="Licuado de melón" data-desc="Licuado fresco de melón.">Licuado de melón</button>
+                    <button class="product-btn" data-img="img/product16.jpg" data-title="Licuado de papaya" data-desc="Licuado fresco y cremoso de papaya.">Licuado de papaya</button>
+                </div>
+                <button class="sm-btn" data-target="CafeSm">Café</button>
+                <div id="CafeSm" class="sm-content">
+                    <button class="product-btn" data-img="img/product17.jpg" data-title="Café de Olla" data-desc="Café de Olla calentito para disfrutar por las mañanas.">Café de Olla</button>
+                    <button class="product-btn" data-img="img/product18.jpg" data-title="Café Americano" data-desc="Agua calentita con servicios de Nescafé para preparar al gusto.">Café Americano</button>
+                </div>
+
+            </div>
         </div>
 
-        <button class="sm-btn" data-target="tacosSm">Tacos y Gorditas (Harina y Maíz)</button>
-        <div id="tacosSm" class="sm-content">
-            <button class="product-btn" data-img="img/product12.jpg" data-title="Barbacoa" data-desc="Tacos de barbacoa tradicionales.">Barbacoa</button>
-            <!-- Agrega aquí resto de productos -->
-        </div>
-
-        <button class="sm-btn" data-target="bebidasSm">Bebidas</button>
-        <div id="bebidasSm" class="sm-content">
-
-            <button class="sm-btn" data-target="licuadosSm">Licuados</button>
-            <div id="licuadosSm" class="sm-content">
-                <button class="product-btn" data-img="img/product13.jpg" data-title="Licuado de plátano" data-desc="Licuado cremoso de plátano.">Licuado de plátano</button>
-                <button class="product-btn" data-img="img/product14.jpg" data-title="Licuado de fresa" data-desc="Licuado fresco de fresa.">Licuado de fresa</button>
-                <button class="product-btn" data-img="img/product15.jpg" data-title="Licuado de melón" data-desc="Licuado fresco de melón.">Licuado de melón</button>
-                <button class="product-btn" data-img="img/product16.jpg" data-title="Licuado de papaya" data-desc="Licuado fresco y cremoso de papaya.">Licuado de papaya</button>
-            </div>
-            <button class="sm-btn" data-target="CafeSm">Café</button>
-            <div id="CafeSm" class="sm-content">
-                <button class="product-btn" data-img="img/product17.jpg" data-title="Café de Olla" data-desc="Café de Olla calentito para disfrutar por las mañanas.">Café de Olla</button>
-                <button class="product-btn" data-img="img/product18.jpg" data-title="Café Americano" data-desc="Agua calentita con servicios de Nescafé para preparar al gusto.">Café Americano</button>
-            </div>
-
+        <!-- FIN DE SEMANA -->
+        <div id="fdsMenu" class="menu">
+            <p><strong>Fin de Semana</strong>: Tacos, Gorditas, Pozole y Menudo</p>
+            <p>Disponible 5:30 AM – 3:30 PM</p>
         </div>
     </div>
 
-    <!-- FIN DE SEMANA -->
-    <div id="fdsMenu" class="menu">
-        <p><strong>Fin de Semana</strong>: Tacos, Gorditas, Pozole y Menudo</p>
-        <p>Disponible 5:30 AM – 3:30 PM</p>
-    </div>
-</div>
+    <section class="horarios" id="horariosInfo">
+        <h2>Horarios</h2>
+        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+        <p><strong>Bebidas:</strong> Todo el día</p>
+        <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
+    </section>
 
-<section class="horarios" id="horariosInfo">
-    <h2>Horarios</h2>
-    <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-    <p><strong>Bebidas:</strong> Todo el día</p>
-    <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
-</section>
-
-<div id="prodInfo" class="product-info">
-    <div class="info-flex">
-        <img id="prodImg" src="" alt="" />
-        <div>
-            <h3 id="prodTitle"></h3>
-            <p id="prodDesc"></p>
+    <div id="prodInfo" class="product-info">
+        <div class="info-flex">
+            <img id="prodImg" src="" alt="" />
+            <div>
+                <h3 id="prodTitle"></h3>
+                <p id="prodDesc"></p>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    const entreBtn = document.getElementById('entreBtn'),
-        fdsBtn = document.getElementById('fdsBtn'),
-        entreMenu = document.getElementById('entreMenu'),
-        fdsMenu = document.getElementById('fdsMenu'),
-        prodInfo = document.getElementById('prodInfo'),
-        horariosInfo = document.getElementById('horariosInfo');
+    <script>
+        const entreBtn = document.getElementById('entreBtn'),
+            fdsBtn = document.getElementById('fdsBtn'),
+            entreMenu = document.getElementById('entreMenu'),
+            fdsMenu = document.getElementById('fdsMenu'),
+            prodInfo = document.getElementById('prodInfo'),
+            horariosInfo = document.getElementById('horariosInfo');
 
-    function resetAll(except = null) {
-        document.querySelectorAll('.sm-btn').forEach(btn => {
-            if (btn !== except && !btn.contains(except) && !(except && except.contains(btn))) {
-                btn.classList.remove('active');
+        function resetAll(except = null) {
+            document.querySelectorAll('.sm-btn').forEach(btn => {
+                if (btn !== except && !btn.contains(except) && !(except && except.contains(btn))) {
+                    btn.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('.sm-content').forEach(content => {
+                if (!except || (!content.contains(except) && !(except && except.contains(content)))) {
+                    content.classList.remove('show');
+                }
+            });
+            if (!except) {
+                prodInfo.classList.remove('show');
             }
-        });
-        document.querySelectorAll('.sm-content').forEach(content => {
-            if (!except || (!content.contains(except) && !(except && except.contains(content)))) {
-                content.classList.remove('show');
-            }
-        });
-        if (!except) {
-            prodInfo.classList.remove('show');
         }
-    }
 
-    entreBtn.addEventListener('click', () => {
-        entreBtn.classList.add('active');
-        fdsBtn.classList.remove('active');
-        entreMenu.classList.add('show');
-        fdsMenu.classList.remove('show');
-        resetAll();
+        entreBtn.addEventListener('click', () => {
+            entreBtn.classList.add('active');
+            fdsBtn.classList.remove('active');
+            entreMenu.classList.add('show');
+            fdsMenu.classList.remove('show');
+            resetAll();
 
-        horariosInfo.innerHTML = `
-            <h2>Horarios</h2>
-            <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-            <p><strong>Bebidas:</strong> Todo el día</p>
-            <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
-        `;
-    });
+            horariosInfo.innerHTML = `
+                        <h2>Horarios</h2>
+                        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+                        <p><strong>Bebidas:</strong> Todo el día</p>
+                        <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
+                    `;
+        });
 
-    fdsBtn.addEventListener('click', () => {
-        fdsBtn.classList.add('active');
-        entreBtn.classList.remove('active');
-        fdsMenu.classList.add('show');
-        entreMenu.classList.remove('show');
-        resetAll();
+        fdsBtn.addEventListener('click', () => {
+            fdsBtn.classList.add('active');
+            entreBtn.classList.remove('active');
+            fdsMenu.classList.add('show');
+            entreMenu.classList.remove('show');
+            resetAll();
 
-        horariosInfo.innerHTML = `
-            <h2>Horarios</h2>
-            <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-            <p><strong>Pozole y menudo:</strong> Todo el día</p>
-            <p><strong>Bebidas:</strong> Todo el día</p>
-        `;
-    });
+            horariosInfo.innerHTML = `
+                        <h2>Horarios</h2>
+                        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+                        <p><strong>Pozole y menudo:</strong> Todo el día</p>
+                        <p><strong>Bebidas:</strong> Todo el día</p>
+                    `;
+        });
 
-    document.querySelectorAll('.sm-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tgt = btn.dataset.target;
-            if (!tgt) return;
-            const el = document.getElementById(tgt);
-            if (!el) return;
-            const isActive = btn.classList.contains('active');
+        document.querySelectorAll('.sm-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tgt = btn.dataset.target;
+                if (!tgt) return;
+                const el = document.getElementById(tgt);
+                if (!el) return;
+                const isActive = btn.classList.contains('active');
 
-            if (isActive) {
-                btn.classList.remove('active');
-                el.classList.remove('show');
-            } else {
-                resetAll(btn);
-                btn.classList.add('active');
-                el.classList.add('show');
+                if (isActive) {
+                    btn.classList.remove('active');
+                    el.classList.remove('show');
+                } else {
+                    resetAll(btn);
+                    btn.classList.add('active');
+                    el.classList.add('show');
+                }
+            });
+        });
+
+        document.querySelectorAll('.product-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('prodTitle').textContent = btn.dataset.title;
+                document.getElementById('prodDesc').textContent = btn.dataset.desc;
+                document.getElementById('prodImg').src = btn.dataset.img || '';
+                prodInfo.classList.add('show');
+            });
+        });
+    </script>
+    <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+        <div style="position:relative; max-width:90%; max-height:90%; background:#222; padding:1.5rem; border-radius:12px; text-align:center; color:#fff;">
+            <button id="closeLightbox" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; color:#fff; cursor:pointer;">✕</button>
+            <img id="lightboxImg" src="" alt="" style="max-width:300px; max-height:300px; border-radius:8px; margin-bottom:1rem;">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDesc" style="margin-bottom:1rem;"></p>
+            <div style="display:flex; justify-content:space-between; margin-top:1rem;">
+                <button id="prevProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">◀</button>
+                <button id="nextProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">▶</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentBtn = null;
+        let btnList = [];
+
+        document.querySelectorAll('.product-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btnList = Array.from(btn.parentElement.querySelectorAll('.product-btn'));
+                currentBtn = btn;
+                showLightbox(btn);
+            });
+        });
+
+        function showLightbox(btn) {
+            document.getElementById('lightboxTitle').textContent = btn.dataset.title;
+            document.getElementById('lightboxDesc').textContent = btn.dataset.desc;
+            document.getElementById('lightboxImg').src = btn.dataset.img;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        document.getElementById('closeLightbox').addEventListener('click', () => {
+            document.getElementById('lightbox').style.display = 'none';
+            currentBtn = null;
+        });
+
+        document.getElementById('prevProduct').addEventListener('click', () => {
+            if (!currentBtn || btnList.length === 0) return;
+            const idx = btnList.indexOf(currentBtn);
+            if (idx > 0) {
+                currentBtn = btnList[idx - 1];
+                showLightbox(currentBtn);
             }
         });
-    });
 
-    document.querySelectorAll('.product-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.getElementById('prodTitle').textContent = btn.dataset.title;
-            document.getElementById('prodDesc').textContent = btn.dataset.desc;
-            document.getElementById('prodImg').src = btn.dataset.img || '';
-            prodInfo.classList.add('show');
+        document.getElementById('nextProduct').addEventListener('click', () => {
+            if (!currentBtn || btnList.length === 0) return;
+            const idx = btnList.indexOf(currentBtn);
+            if (idx < btnList.length - 1) {
+                currentBtn = btnList[idx + 1];
+                showLightbox(currentBtn);
+            } else {
+                document.getElementById('lightbox').style.display = 'none';
+                currentBtn = null;
+            }
         });
-    });
-</script>
+    </script>
 </body>
 </html>
