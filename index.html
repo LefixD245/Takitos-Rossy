@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Menú Restaurante – Interactivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
     <style>
         body {
             margin: 0;
@@ -31,6 +32,8 @@
             }
 
         h1 {
+            font-family: 'Dancing Script', cursive;
+            font-style: italic;
             font-size: 3rem;
             margin: 0;
             letter-spacing: 2px;
@@ -53,30 +56,31 @@
         }
 
             .nav button {
-                padding: 1rem 2.5rem;
-                border: 2px solid rgba(255, 255, 255, 0.6);
-                background: rgba(40, 40, 55, 0.7);
-                color: #eaeaff;
-                font-weight: 700;
-                border-radius: 35px;
+                min-width: 140px;
+                font-size: 1.15rem;
+                padding: 1rem 2rem;
+                border-radius: 30px;
+                color: #ffee99; /* amarillo clarito igual que .sm-btn */
+                background-color: rgba(30, 30, 30, 0.85); /* fondo gris transparente como .sm-btn */
+                border: 1.5px solid #995555; /* borde marrón como .sm-btn */
+                transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+                box-shadow: none;
                 cursor: pointer;
-                box-shadow: 0 0 10px rgba(255,255,255,0.2);
-                transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-                font-size: 1rem;
-                min-width: 120px;
             }
 
                 .nav button.active,
                 .nav button:hover {
-                    background: rgba(200, 255, 200, 0.15);
-                    border-color: #ffaaaa;
-                    box-shadow: 0 0 20px #ffaaaa;
-                    color: #ffcccc;
+                    background-color: rgba(255, 100, 100, 0.2); /* rojo suave como en .sm-btn:hover */
+                    border-color: #f33636; /* rojo vivo */
+                    color: #ffee99; /* amarillo clarito para que resalte */
+                    box-shadow: 0 0 8px 2px rgba(255, 100, 100, 0.3); /* sombra roja suave */
                 }
 
         .menu-wrap {
             display: flex;
             justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
 
         .menu {
@@ -107,7 +111,7 @@
             padding: 0.9rem 1.5rem;
             margin: 0.4rem 0;
             background: rgba(30, 30, 30, 0.85);
-            color: #ccffcc;
+            color: #ffee99;
             border: 1.5px solid #995555;
             border-radius: 8px;
             text-align: left;
@@ -313,13 +317,14 @@
     <div class="top-section">
         <nav class="nav">
             <button id="entreBtn" class="active">ENTRE SEMANA</button>
-            <button id="fdsBtn">FIN DE SEMANA</button>
+            <button id="fdsBtn" class="active">FIN DE SEMANA</button>
         </nav>
     </div>
 
     <div class="menu-wrap">
 
         <!-- ENTRE SEMANA -->
+
         <div id="entreMenu" class="menu show">
 
             <button class="sm-btn" data-target="desayunosSm">DESAYUNOS</button>
@@ -342,220 +347,363 @@
 
             </div>
 
-            <button class="sm-btn" data-target="tacosSm">Tacos y Gorditas (Harina y Maíz)</button>
-            <div id="tacosSm" class="sm-content">
-                <button class="product-btn" data-img="img/Barbacoa.png" data-title="Barbacoa" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Barbacoa</button>
-                <button class="product-btn" data-img="img/Deshebrada.png" data-title="Deshebrada" data-desc="Carne de Res en hebras finas y jugosas que acarician tu paladar.">Deshebrada</button>
-                <button class="product-btn" data-img="img/Chicharron.png" data-title="Chicharrón Prensado" data-desc="Chicharrón Prensado en guiso rojo, suave y sabroso como ningún otro.">Chicharrón Prensado</button>
-                <button class="product-btn" data-img="img/Discada.png" data-title="Discada" data-desc="Combinación de salchica, cebolla, jitomate y demás sabores por descubrir.">Discada</button>
-                <button class="product-btn" data-img="img/Cochinita.png" data-title="Cochinita Pibíl" data-desc="Guisado de cerdo horneado. Ideal para amantes del sabor.">Cochinita Pibíl</button>
-                <button class="product-btn" data-img="img/Asado.png" data-title="Asado de puerco" data-desc="Asado rojo de puerco al más puro estilo Saltillo.">Asado de puerco</button>
-                <button class="product-btn" data-img="img/Frijoles.png" data-title="Frijoles con queso" data-desc="Tradicionales Frijolitos refritos acompañados de un buen quesito para degustar.">Frijoles con queso</button>
-                <button class="product-btn" data-img="img/Rajas.png" data-title="Rajas con queso" data-desc="Combinación de colores mexicanos (Verde, blanco y rojo) de chile poblano y queso panela.">Rajas con queso</button>
-                <button class="product-btn" data-img="img/Papa.png" data-title="Guisado de papa" data-desc="Guisado de papa con mantequilla para degustar algo suave, ligero y sabroso.">Guisado de papa</button>
-                <button class="product-btn" data-img="img/Carnitas.png" data-title="Carnitas en salsa verde" data-desc="Trocitos de carne de puerco en salsita verde.">Carnitas en salsa verde</button>
-                <button class="product-btn" data-img="img/Picadillo.png" data-title="Picadillo" data-desc="Carne molina con papa, combinación de proteina y carbohidratos, ideal para niños y para mantener la figura.">Picadillo</button>
-                <button class="product-btn" data-img="img/Huevo.png" data-title="Huevo a la mexicana" data-desc="Sabor y colores patrios en el clásico Huevito a la mexicana para recordar nuestro orgullo con sabor.">Huevo a la mexicana</button>
-                <button class="product-btn" data-img="img/Nopal.png" data-title="Nopales" data-desc="Nopal clásico mexicano, sabroso y ligero para calmar el hambre de forma tranquila.">Nopales</button>
-                <!-- Agrega aquí resto de productos -->
+            <button class="sm-btn" data-target="TacosGSm">TACOS Y GORDITAS</button>
+            <div id="TacosGSm" class="sm-content">
+                <button class="product-btn" data-img="img/product1.jpg" data-title="Tacos de Harina" data-desc="Taquitos con tortilla de Harina para que almuerce el muñeco. ">Tacos de Harina</button>
+                <button class="product-btn" data-img="img/product2.jpg" data-title="Tacos de Maíz" data-desc="Taquitos clásicos con tortilla de maíz bien mexicano.">Tacos de Maíz</button>
+                <button class="product-btn" data-img="img/product2.jpg" data-title="Gorditas de Harina" data-desc="Gorditas de harina bien rellenas de su respectivo guiso.">Gorditas de Harina</button>
+                <button class="product-btn" data-img="img/product2.jpg" data-title="Gorditas de Maíz" data-desc="Que sean de maíz no las hace fit, ¡Pidelas bien gordas!.">Gorditas de Maíz</button>
+
+
+                <button class="sm-btn" data-target="GuisosSm">Variedad de Guisos</button>
+                <div id="GuisosSm" class="sm-content">
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Barbacoa" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Barbacoa</button>
+                    <button class="product-btn" data-img="img/Deshebrada.png" data-title="Deshebrada" data-desc="Carne de Res en hebras finas y jugosas que acarician tu paladar.">Deshebrada</button>
+                    <button class="product-btn" data-img="img/Chicharron.png" data-title="Chicharrón Prensado" data-desc="Chicharrón Prensado en guiso rojo, suave y sabroso como ningún otro.">Chicharrón Prensado</button>
+                    <button class="product-btn" data-img="img/Discada.png" data-title="Discada" data-desc="Combinación de salchica, cebolla, jitomate y demás sabores por descubrir.">Discada</button>
+                    <button class="product-btn" data-img="img/Cochinita.png" data-title="Cochinita Pibíl" data-desc="Guisado de cerdo horneado. Ideal para amantes del sabor.">Cochinita Pibíl</button>
+                    <button class="product-btn" data-img="img/Asado.png" data-title="Asado de puerco" data-desc="Asado rojo de puerco al más puro estilo Saltillo.">Asado de puerco</button>
+                    <button class="product-btn" data-img="img/Frijoles.png" data-title="Frijoles con queso" data-desc="Tradicionales Frijolitos refritos acompañados de un buen quesito para degustar.">Frijoles con queso</button>
+                    <button class="product-btn" data-img="img/Rajas.png" data-title="Rajas con queso" data-desc="Combinación de colores mexicanos (Verde, blanco y rojo) de chile poblano y queso panela.">Rajas con queso</button>
+                    <button class="product-btn" data-img="img/Papa.png" data-title="Guisado de papa" data-desc="Guisado de papa con mantequilla para degustar algo suave, ligero y sabroso.">Guisado de papa</button>
+                    <button class="product-btn" data-img="img/Carnitas.png" data-title="Carnitas en salsa verde" data-desc="Trocitos de carne de puerco en salsita verde.">Carnitas en salsa verde</button>
+                    <button class="product-btn" data-img="img/Picadillo.png" data-title="Picadillo" data-desc="Carne molina con papa, combinación de proteina y carbohidratos, ideal para niños y para mantener la figura.">Picadillo</button>
+                    <button class="product-btn" data-img="img/Huevo.png" data-title="Huevo a la mexicana" data-desc="Sabor y colores patrios en el clásico Huevito a la mexicana para recordar nuestro orgullo con sabor.">Huevo a la mexicana</button>
+                    <button class="product-btn" data-img="img/Nopal.png" data-title="Nopales" data-desc="Nopal clásico mexicano, sabroso y ligero para calmar el hambre de forma tranquila.">Nopales</button>
+                    <!-- Agrega aquí resto de productos -->
+                </div>
             </div>
 
-             <button class="sm-btn" data-target="platilloSm">Platillos</button>
+            <button class="sm-btn" data-target="menudoSm">MENUDO</button>
+            <div id="menudoSm" class="sm-content">
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Menudo Grande" data-desc="Rico menudo, considerado por muchos el mejor de Ramos, calidadad y sabor Takitos Rossy. plato grande 3/4 de Litro - $110.">Menudo Grande</button>
+                <button class="product-btn" data-img="img/MenudoC.png" data-title="Menudo Chico" data-desc="Rico menudo, considerado por muchos el mejor de Ramos, calidadad y sabor Takitos Rossy. plato chico 1/2 Litro - $90" .>Menudo Chico</button>
+            </div>
+
+            <button class="sm-btn" data-target="platilloSm">PLATILLOS</button>
             <div id="platilloSm" class="sm-content">
-                <button class="product-btn" data-img="img/Menudo.png" data-title="Menudo" data-desc="Rico menudo, considerado por muchos el mejor de Ramos, calidadad y sabor Takitos Rossy. Plato chico 1/2 litro, plato grande 3/4 de Litro">Menudo</button>
-                <button class="product-btn" data-img="img/Pozole.png" data-title="Pozole" data-desc="Pozole de puerco tradicional con el único sabor que te encanta. Plato chico 1/2 litro, plato grande 3/4 de Litro">Pozole</button>
+                <button class="product-btn" data-img="img/PozoleG.png" data-title="Pozole de Puerco Grande" data-desc="Pozole de puerco tradicional con el único sabor que te encanta. Plato chico 1/2 litro, plato grande 3/4 de Litro">Pozole de Puerco Grande</button>
+                <button class="product-btn" data-img="img/CaldoRes.png" data-title="Pozole de Puerco Chico" data-desc="Pozole de puerco 1/2 Litro.">Pozole de Puerco Chico</button>
                 <button class="product-btn" data-img="img/CaldoRes.png" data-title="Caldo de Res" data-desc="Caldo de Res bien caliente para acompañar con Coca bien helada.">Caldo de Res</button>
-                
+
             </div>
 
-            <button class="sm-btn" data-target="bebidasSm">Bebidas</button>
+            <button class="sm-btn" data-target="mariscosSm">MARISCOS</button>
+            <div id="mariscosSm" class="sm-content">
+                <button class="product-btn" data-img="img/FileteEmp.png" data-title="Filete de Pescado Empanizado" data-desc="Filete de pescado empanizado">Filete de Pescado Empanizado</button>
+                <button class="product-btn" data-img="img/FileteAl.png" data-title="Filete de Pescado al Ajillo" data-desc="Filete de pescado bla bla bla al ajillo">Filete de Pescado al Ajillo</button>
+                <button class="product-btn" data-img="img/CaldoRes.png" data-title="Caldo de Pescado Chico" data-desc="Caldo de Res bien caliente para acompañar con Coca bien helada.">Caldo de Pescado Chico</button>
+                <button class="product-btn" data-img="img/CaldoRes.png" data-title="Caldo de Pescado Grande" data-desc="Caldo de Res bien caliente para acompañar con Coca bien helada.">Caldo de Pescado Grande</button>
+
+                <button class="sm-btn" data-target="CamaronesSm">Camarones al Gusto</button>
+                <div id="CamaronesSm" class="sm-content">
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Empanizados" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Empanizados</button>
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Enchipotlados" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Enchipotlados</button>
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="A la Mexicana" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">A la Mexicana</button>
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="A la Diabla" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">A la Diabla</button>
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Envueltos en Tocino" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Envueltos en Tocino</button>
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Cóctel de Camarón Chico" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Cóctel de Camarón Chico</button>
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Cóctel de Camarón Mediano" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Cóctel de Camarón Mediano</button>
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Cóctel de Camarón Grande" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Cóctel de Camarón Grande</button>
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Tostada de Camarón" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Tostada de Camarón</button>
+                </div>
+
+            </div>
+
+            <button class="sm-btn" data-target="bebidasSm">BEBIDAS</button>
             <div id="bebidasSm" class="sm-content">
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Botella de Agua Natural" data-desc="Botella de Agua Natural.">Botella de Agua Natural</button>
 
                 <button class="sm-btn" data-target="licuadosSm">Licuados</button>
                 <div id="licuadosSm" class="sm-content">
-                    <button class="product-btn" data-img="img/LicuaPlat.jpg" data-title="Licuado de plátano" data-desc="Licuado cremoso de plátano.">Licuado de plátano</button>
-                    <button class="product-btn" data-img="img/LicuaFre.png" data-title="Licuado de fresa" data-desc="Licuado fresco de fresa.">Licuado de fresa</button>
-                    <button class="product-btn" data-img="img/product15.jpg" data-title="Licuado de melón" data-desc="Licuado fresco de melón.">Licuado de melón</button>
-                    <button class="product-btn" data-img="img/product16.jpg" data-title="Licuado de papaya" data-desc="Licuado fresco y cremoso de papaya.">Licuado de papaya</button>
+                    <button class="product-btn" data-img="img/LicuaPlat.jpg" data-title="Licuado en copa Chica" data-desc="Licuado cremoso de plátano.">Licuado en copa Chica</button>
+                    <button class="product-btn" data-img="img/LicuaFre.png" data-title="Licuado en copa Grande" data-desc="Licuado fresco de fresa.">Licuado en copa Grande</button>
+                    <button class="product-btn" data-img="img/product15.jpg" data-title="Licuado en vaso de Litro" data-desc="Licuado fresco de melón.">Licuado en vaso de Litro</button>
                 </div>
+
+                <button class="sm-btn" data-target="AguasSm">Aguas de Frutas Naturales</button>
+                <div id="AguasSm" class="sm-content">
+                    <button class="product-btn" data-img="img/LicuaPlat.jpg" data-title="Vaso de Medio Litro" data-desc="Licuado cremoso de plátano.">Vaso de Medio Litro</button>
+                    <button class="product-btn" data-img="img/LicuaFre.png" data-title="Vaso de Litro" data-desc="Licuado fresco de fresa.">Vaso de Litro</button>
+
+                </div>
+
                 <button class="sm-btn" data-target="CafeSm">Café</button>
                 <div id="CafeSm" class="sm-content">
                     <button class="product-btn" data-img="img/product17.jpg" data-title="Café de Olla" data-desc="Café de Olla calentito para disfrutar por las mañanas.">Café de Olla</button>
                     <button class="product-btn" data-img="img/product18.jpg" data-title="Café Americano" data-desc="Agua calentita con servicios de Nescafé para preparar al gusto.">Café Americano</button>
                 </div>
 
-            </div>
-        </div>
+                <button class="sm-btn" data-target="RefrescosSm">Refrescos</button>
+                <div id="RefrescosSm" class="sm-content">
+                    <button class="product-btn" data-img="img/product17.jpg" data-title="Refresco de 355ml" data-desc="Café de Olla calentito para disfrutar por las mañanas.">Refresco de 355ml</button>
+                    <button class="product-btn" data-img="img/product18.jpg" data-title="Refresco de 600ml" data-desc="Agua calentita con servicios de Nescafé para preparar al gusto.">Refresco de 600ml</button>
+                </div>
 
-        <!-- FIN DE SEMANA -->
+            </div>
+
+            <button class="sm-btn" data-target="extrasSm">EXTRAS</button>
+            <div id="extrasSm" class="sm-content">
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Pieza extra de Pan" data-desc="Pieza extra de Pan.">Pieza extra de Pan</button>
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="1/2Kg de Tortillas de Harina" data-desc="Pieza extra de Pan.">1/2Kg de Tortillas de Harina</button>
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Vaso con Hielo" data-desc="Pieza extra de Pan.">Vaso con Hielo</button>
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Descorche" data-desc="Pieza extra de Pan.">Descorche</button>
+
+            </div>
+
+        </div>
         <div id="fdsMenu" class="menu">
-            <p><strong>Fin de Semana</strong>: Tacos, Gorditas, Pozole y Menudo</p>
-            <p>Disponible 5:30 AM – 3:30 PM</p>
+
+            <!-- FIN DE SEMANA -->
+            <button class="sm-btn" data-target="TacosG2Sm">TACOS Y GORDITAS</button>
+            <div id="TacosG2Sm" class="sm-content">
+                <button class="product-btn" data-img="img/product1.jpg" data-title="Tacos de Harina" data-desc="Taquitos con tortilla de Harina para que almuerce el muñeco. ">Tacos de Harina</button>
+                <button class="product-btn" data-img="img/product2.jpg" data-title="Tacos de Maíz" data-desc="Taquitos clásicos con tortilla de maíz bien mexicano.">Tacos de Maíz</button>
+                <button class="product-btn" data-img="img/product2.jpg" data-title="Gorditas de Harina" data-desc="Gorditas de harina bien rellenas de su respectivo guiso.">Gorditas de Harina</button>
+                <button class="product-btn" data-img="img/product2.jpg" data-title="Gorditas de Maíz" data-desc="Que sean de maíz no las hace fit, ¡Pidelas bien gordas!.">Gorditas de Maíz</button>
+
+
+                <button class="sm-btn" data-target="Guisos2Sm">Variedad de Guisos</button>
+                <div id="Guisos2Sm" class="sm-content">
+                    <button class="product-btn" data-img="img/Barbacoa.png" data-title="Barbacoa" data-desc="La mejor Barbacoa de Ramos, picada y mezclada por los mejores picadores de la región.">Barbacoa</button>
+                    <button class="product-btn" data-img="img/Deshebrada.png" data-title="Deshebrada" data-desc="Carne de Res en hebras finas y jugosas que acarician tu paladar.">Deshebrada</button>
+                    <button class="product-btn" data-img="img/Chicharron.png" data-title="Chicharrón Prensado" data-desc="Chicharrón Prensado en guiso rojo, suave y sabroso como ningún otro.">Chicharrón Prensado</button>
+                    <button class="product-btn" data-img="img/Discada.png" data-title="Discada" data-desc="Combinación de salchica, cebolla, jitomate y demás sabores por descubrir.">Discada</button>
+                    <button class="product-btn" data-img="img/Cochinita.png" data-title="Cochinita Pibíl" data-desc="Guisado de cerdo horneado. Ideal para amantes del sabor.">Cochinita Pibíl</button>
+                    <button class="product-btn" data-img="img/Asado.png" data-title="Asado de puerco" data-desc="Asado rojo de puerco al más puro estilo Saltillo.">Asado de puerco</button>
+                    <button class="product-btn" data-img="img/Frijoles.png" data-title="Frijoles con queso" data-desc="Tradicionales Frijolitos refritos acompañados de un buen quesito para degustar.">Frijoles con queso</button>
+                    <button class="product-btn" data-img="img/Rajas.png" data-title="Rajas con queso" data-desc="Combinación de colores mexicanos (Verde, blanco y rojo) de chile poblano y queso panela.">Rajas con queso</button>
+                    <button class="product-btn" data-img="img/Papa.png" data-title="Guisado de papa" data-desc="Guisado de papa con mantequilla para degustar algo suave, ligero y sabroso.">Guisado de papa</button>
+                    <button class="product-btn" data-img="img/Carnitas.png" data-title="Carnitas en salsa verde" data-desc="Trocitos de carne de puerco en salsita verde.">Carnitas en salsa verde</button>
+                    <button class="product-btn" data-img="img/Picadillo.png" data-title="Picadillo" data-desc="Carne molina con papa, combinación de proteina y carbohidratos, ideal para niños y para mantener la figura.">Picadillo</button>
+                    <button class="product-btn" data-img="img/Huevo.png" data-title="Huevo a la mexicana" data-desc="Sabor y colores patrios en el clásico Huevito a la mexicana para recordar nuestro orgullo con sabor.">Huevo a la mexicana</button>
+                    <button class="product-btn" data-img="img/Nopal.png" data-title="Nopales" data-desc="Nopal clásico mexicano, sabroso y ligero para calmar el hambre de forma tranquila.">Nopales</button>
+                    <!-- Agrega aquí resto de productos -->
+                </div>
+            </div>
+
+
+            <button class="sm-btn" data-target="menudo2Sm">MENUDO</button>
+            <div id="menudo2Sm" class="sm-content">
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Menudo Grande" data-desc="Rico menudo, considerado por muchos el mejor de Ramos, calidadad y sabor Takitos Rossy. plato grande 3/4 de Litro - $110.">Menudo Grande</button>
+                <button class="product-btn" data-img="img/MenudoC.png" data-title="Menudo Chico" data-desc="Rico menudo, considerado por muchos el mejor de Ramos, calidadad y sabor Takitos Rossy. plato chico 1/2 Litro - $90" .>Menudo Chico</button>
+            </div>
+
+            <button class="sm-btn" data-target="pozoleSm">POZOLE DE PUERCO</button>
+            <div id="pozoleSm" class="sm-content">
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Pozole de Puerco Grande" data-desc="Rico menudo, considerado por muchos el mejor de Ramos, calidadad y sabor Takitos Rossy. plato grande 3/4 de Litro - $110.">Pozole de Puerco Grande</button>
+                <button class="product-btn" data-img="img/MenudoC.png" data-title="Pozole de Puerco Chico" data-desc="Rico menudo, considerado por muchos el mejor de Ramos, calidadad y sabor Takitos Rossy. plato chico 1/2 Litro - $90" .>Pozole de Puerco Chico</button>
+            </div>
+
+            <button class="sm-btn" data-target="bebidas2Sm">BEBIDAS</button>
+            <div id="bebidas2Sm" class="sm-content">
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Botella de Agua Natural" data-desc="Botella de Agua Natural.">Botella de Agua Natural</button>
+
+                <button class="sm-btn" data-target="licuados2Sm">Licuados</button>
+                <div id="licuados2Sm" class="sm-content">
+                    <button class="product-btn" data-img="img/LicuaPlat.jpg" data-title="Licuado en copa Chica" data-desc="Licuado cremoso de plátano.">Licuado en copa Chica</button>
+                    <button class="product-btn" data-img="img/LicuaFre.png" data-title="Licuado en copa Grande" data-desc="Licuado fresco de fresa.">Licuado en copa Grande</button>
+                    <button class="product-btn" data-img="img/product15.jpg" data-title="Licuado en vaso de Litro" data-desc="Licuado fresco de melón.">Licuado en vaso de Litro</button>
+                </div>
+
+                <button class="sm-btn" data-target="Aguas2Sm">Aguas de Frutas Naturales</button>
+                <div id="Aguas2Sm" class="sm-content">
+                    <button class="product-btn" data-img="img/LicuaPlat.jpg" data-title="Vaso de Medio Litro" data-desc="Licuado cremoso de plátano.">Vaso de Medio Litro</button>
+                    <button class="product-btn" data-img="img/LicuaFre.png" data-title="Vaso de Litro" data-desc="Licuado fresco de fresa.">Vaso de Litro</button>
+
+                </div>
+
+                <button class="sm-btn" data-target="Cafe2Sm">Café</button>
+                <div id="Cafe2Sm" class="sm-content">
+                    <button class="product-btn" data-img="img/product17.jpg" data-title="Café de Olla" data-desc="Café de Olla calentito para disfrutar por las mañanas.">Café de Olla</button>
+                    <button class="product-btn" data-img="img/product18.jpg" data-title="Café Americano" data-desc="Agua calentita con servicios de Nescafé para preparar al gusto.">Café Americano</button>
+                </div>
+
+                <button class="sm-btn" data-target="Refrescos2Sm">Refrescos</button>
+                <div id="Refrescos2Sm" class="sm-content">
+                    <button class="product-btn" data-img="img/product17.jpg" data-title="Refresco de 355ml" data-desc="Café de Olla calentito para disfrutar por las mañanas.">Refresco de 355ml</button>
+                    <button class="product-btn" data-img="img/product18.jpg" data-title="Refresco de 600ml" data-desc="Agua calentita con servicios de Nescafé para preparar al gusto.">Refresco de 600ml</button>
+                </div>
+
+            </div>
+
+            <button class="sm-btn" data-target="extras2Sm">EXTRAS</button>
+            <div id="extras2Sm" class="sm-content">
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Pieza extra de Pan" data-desc="Pieza extra de Pan.">Pieza extra de Pan</button>
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="1/2Kg de Tortillas de Harina" data-desc="Pieza extra de Pan.">1/2Kg de Tortillas de Harina</button>
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Vaso con Hielo" data-desc="Pieza extra de Pan.">Vaso con Hielo</button>
+                <button class="product-btn" data-img="img/MenudoG.png" data-title="Descorche" data-desc="Pieza extra de Pan.">Descorche</button>
+
+            </div>
+
+
+
         </div>
-    </div>
 
-    <section class="horarios" id="horariosInfo">
-        <h2>Horarios</h2>
-        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-        <p><strong>Menudo:</strong> Todo el día</p>
-        <p><strong>Bebidas:</strong> Todo el día</p>
-        <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
-        <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
-        <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
+        </div>
 
-    </section>
+        <section class="horarios" id="horariosInfo">
+            <h2>Horarios</h2>
+            <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+            <p><strong>Menudo:</strong> Todo el día</p>
+            <p><strong>Bebidas:</strong> Todo el día</p>
+            <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
+            <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
+            <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
 
-    <div id="prodInfo" class="product-info">
-        <div class="info-flex">
-            <img id="prodImg" src="" alt="" />
-            <div>
-                <h3 id="prodTitle"></h3>
-                <p id="prodDesc"></p>
+        </section>
+
+        <div id="prodInfo" class="product-info">
+            <div class="info-flex">
+                <img id="prodImg" src="" alt="" />
+                <div>
+                    <h3 id="prodTitle"></h3>
+                    <p id="prodDesc"></p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        const entreBtn = document.getElementById('entreBtn'),
-            fdsBtn = document.getElementById('fdsBtn'),
-            entreMenu = document.getElementById('entreMenu'),
-            fdsMenu = document.getElementById('fdsMenu'),
-            prodInfo = document.getElementById('prodInfo'),
-            horariosInfo = document.getElementById('horariosInfo');
+        <script>
+            const entreBtn = document.getElementById('entreBtn'),
+                fdsBtn = document.getElementById('fdsBtn'),
+                entreMenu = document.getElementById('entreMenu'),
+                fdsMenu = document.getElementById('fdsMenu'),
+                prodInfo = document.getElementById('prodInfo'),
+                horariosInfo = document.getElementById('horariosInfo');
 
-        function resetAll(except = null) {
+            function resetAll(except = null) {
+                document.querySelectorAll('.sm-btn').forEach(btn => {
+                    if (btn !== except && !btn.contains(except) && !(except && except.contains(btn))) {
+                        btn.classList.remove('active');
+                    }
+                });
+                document.querySelectorAll('.sm-content').forEach(content => {
+                    if (!except || (!content.contains(except) && !(except && except.contains(content)))) {
+                        content.classList.remove('show');
+                    }
+                });
+                if (!except) {
+                    prodInfo.classList.remove('show');
+                }
+            }
+
+            entreBtn.addEventListener('click', () => {
+                entreBtn.classList.add('active');
+                fdsBtn.classList.remove('active');
+                entreMenu.classList.add('show');
+                fdsMenu.classList.remove('show');
+                resetAll();
+
+                horariosInfo.innerHTML = `
+                                                <h2>Horarios</h2>
+                                                <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+                                                <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
+                                                <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
+                                                <p><strong>Bebidas:</strong> Todo el día</p>
+                                                <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
+                                                <p><strong>Menudo:</strong> Todo el día</p>
+                                            `;
+            });
+
+            fdsBtn.addEventListener('click', () => {
+                fdsBtn.classList.add('active');
+                entreBtn.classList.remove('active');
+                fdsMenu.classList.add('show');
+                entreMenu.classList.remove('show');
+                resetAll();
+
+                horariosInfo.innerHTML = `
+                                <h2>Horarios</h2>
+                                <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+                                <p><strong>Pozole y menudo:</strong> Todo el día</p>
+                                <p><strong>Bebidas:</strong> Todo el día</p>
+                                            `;
+            });
+
             document.querySelectorAll('.sm-btn').forEach(btn => {
-                if (btn !== except && !btn.contains(except) && !(except && except.contains(btn))) {
-                    btn.classList.remove('active');
-                }
+                btn.addEventListener('click', () => {
+                    const tgt = btn.dataset.target;
+                    if (!tgt) return;
+                    const el = document.getElementById(tgt);
+                    if (!el) return;
+                    const isActive = btn.classList.contains('active');
+
+                    if (isActive) {
+                        btn.classList.remove('active');
+                        el.classList.remove('show');
+                    } else {
+                        resetAll(btn);
+                        btn.classList.add('active');
+                        el.classList.add('show');
+                    }
+                });
             });
-            document.querySelectorAll('.sm-content').forEach(content => {
-                if (!except || (!content.contains(except) && !(except && except.contains(content)))) {
-                    content.classList.remove('show');
-                }
+
+            document.querySelectorAll('.product-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('prodTitle').textContent = btn.dataset.title;
+                    document.getElementById('prodDesc').textContent = btn.dataset.desc;
+                    document.getElementById('prodImg').src = btn.dataset.img || '';
+                    prodInfo.classList.add('show');
+                });
             });
-            if (!except) {
-                prodInfo.classList.remove('show');
-            }
-        }
-
-        entreBtn.addEventListener('click', () => {
-            entreBtn.classList.add('active');
-            fdsBtn.classList.remove('active');
-            entreMenu.classList.add('show');
-            fdsMenu.classList.remove('show');
-            resetAll();
-
-            horariosInfo.innerHTML = `
-                        <h2>Horarios</h2>
-                        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-                        <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
-                        <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
-                        <p><strong>Bebidas:</strong> Todo el día</p>
-                        <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
-                        <p><strong>Pozole:</strong> Todo el día</p>
-                    `;
-        });
-
-        fdsBtn.addEventListener('click', () => {
-            fdsBtn.classList.add('active');
-            entreBtn.classList.remove('active');
-            fdsMenu.classList.add('show');
-            entreMenu.classList.remove('show');
-            resetAll();
-
-            horariosInfo.innerHTML = `
-                        <h2>Horarios</h2>
-                        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-                        <p><strong>Pozole y menudo:</strong> Todo el día</p>
-                        <p><strong>Bebidas:</strong> Todo el día</p>
-                    `;
-        });
-
-        document.querySelectorAll('.sm-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tgt = btn.dataset.target;
-                if (!tgt) return;
-                const el = document.getElementById(tgt);
-                if (!el) return;
-                const isActive = btn.classList.contains('active');
-
-                if (isActive) {
-                    btn.classList.remove('active');
-                    el.classList.remove('show');
-                } else {
-                    resetAll(btn);
-                    btn.classList.add('active');
-                    el.classList.add('show');
-                }
-            });
-        });
-
-        document.querySelectorAll('.product-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('prodTitle').textContent = btn.dataset.title;
-                document.getElementById('prodDesc').textContent = btn.dataset.desc;
-                document.getElementById('prodImg').src = btn.dataset.img || '';
-                prodInfo.classList.add('show');
-            });
-        });
-    </script>
-    <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
-        <div style="position:relative; max-width:90%; max-height:90%; background:#222; padding:1.5rem; border-radius:12px; text-align:center; color:#fff;">
-            <button id="closeLightbox" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; color:#fff; cursor:pointer;">✕</button>
-            <img id="lightboxImg" src="" alt="" style="max-width:300px; max-height:300px; border-radius:8px; margin-bottom:1rem;">
-            <h3 id="lightboxTitle"></h3>
-            <p id="lightboxDesc" style="margin-bottom:1rem;"></p>
-            <div style="display:flex; justify-content:space-between; margin-top:1rem;">
-                <button id="prevProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">◀</button>
-                <button id="nextProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">▶</button>
+        </script>
+        <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+            <div style="position:relative; max-width:90%; max-height:90%; background:#222; padding:1.5rem; border-radius:12px; text-align:center; color:#fff;">
+                <button id="closeLightbox" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; color:#fff; cursor:pointer;">✕</button>
+                <img id="lightboxImg" src="" alt="" style="max-width:300px; max-height:300px; border-radius:8px; margin-bottom:1rem;">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDesc" style="margin-bottom:1rem;"></p>
+                <div style="display:flex; justify-content:space-between; margin-top:1rem;">
+                    <button id="prevProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">◀</button>
+                    <button id="nextProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">▶</button>
+                </div>
             </div>
         </div>
-    </div>
-    <script>
-        let currentBtn = null;
-        let btnList = [];
+        <script>
+            let currentBtn = null;
+            let btnList = [];
 
-        document.querySelectorAll('.product-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                btnList = Array.from(btn.parentElement.querySelectorAll('.product-btn'));
-                currentBtn = btn;
-                showLightbox(btn);
+            document.querySelectorAll('.product-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btnList = Array.from(btn.parentElement.querySelectorAll('.product-btn'));
+                    currentBtn = btn;
+                    showLightbox(btn);
+                });
             });
-        });
 
-        function showLightbox(btn) {
-            document.getElementById('lightboxTitle').textContent = btn.dataset.title;
-            document.getElementById('lightboxDesc').textContent = btn.dataset.desc;
-            document.getElementById('lightboxImg').src = btn.dataset.img;
-            document.getElementById('lightbox').style.display = 'flex';
-        }
-
-        document.getElementById('closeLightbox').addEventListener('click', () => {
-            document.getElementById('lightbox').style.display = 'none';
-            currentBtn = null;
-        });
-
-        document.getElementById('prevProduct').addEventListener('click', () => {
-            if (!currentBtn || btnList.length === 0) return;
-            const idx = btnList.indexOf(currentBtn);
-            if (idx > 0) {
-                currentBtn = btnList[idx - 1];
-                showLightbox(currentBtn);
+            function showLightbox(btn) {
+                document.getElementById('lightboxTitle').textContent = btn.dataset.title;
+                document.getElementById('lightboxDesc').textContent = btn.dataset.desc;
+                document.getElementById('lightboxImg').src = btn.dataset.img;
+                document.getElementById('lightbox').style.display = 'flex';
             }
-        });
 
-        document.getElementById('nextProduct').addEventListener('click', () => {
-            if (!currentBtn || btnList.length === 0) return;
-            const idx = btnList.indexOf(currentBtn);
-            if (idx < btnList.length - 1) {
-                currentBtn = btnList[idx + 1];
-                showLightbox(currentBtn);
-            } else {
+            document.getElementById('closeLightbox').addEventListener('click', () => {
                 document.getElementById('lightbox').style.display = 'none';
                 currentBtn = null;
-            }
-        });
-    </script>
+            });
+
+            document.getElementById('prevProduct').addEventListener('click', () => {
+                if (!currentBtn || btnList.length === 0) return;
+                const idx = btnList.indexOf(currentBtn);
+                if (idx > 0) {
+                    currentBtn = btnList[idx - 1];
+                    showLightbox(currentBtn);
+                }
+            });
+
+            document.getElementById('nextProduct').addEventListener('click', () => {
+                if (!currentBtn || btnList.length === 0) return;
+                const idx = btnList.indexOf(currentBtn);
+                if (idx < btnList.length - 1) {
+                    currentBtn = btnList[idx + 1];
+                    showLightbox(currentBtn);
+                } else {
+                    document.getElementById('lightbox').style.display = 'none';
+                    currentBtn = null;
+                }
+            });
+        </script>
 </body>
 </html>
