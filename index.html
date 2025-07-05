@@ -13,6 +13,11 @@
             color: #f0f0f5;
             padding: 2rem 1rem;
             text-align: center;
+            min-height: 100vh;
+        }
+
+        html, body {
+            height: 100%;
         }
 
         header {
@@ -329,6 +334,15 @@
             flex-direction: column;
             align-items: center; /* para centrar el texto */
         }
+
+        .aviso-bebidas {
+            margin-top: 0.rem;
+            margin-bottom: 0.2rem;
+            font-size: 0.8rem;
+            color: #ffcc66;
+            font-style: italic;
+            text-shadow: 0 0 5px #aa6600;
+        }
         }
     </style>
 </head>
@@ -348,6 +362,10 @@
             <button id="fdsBtn">FIN DE SEMANA</button>
         </nav>
     </div>
+
+    <p id="bebidasAviso" class="aviso-bebidas">
+        Se prohíbe la entrada con bebidas (Se cobrará descorche).
+    </p>
 
     <div class="menu-wrap">
 
@@ -578,6 +596,9 @@
         <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
         <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
         <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
+        <p id="bebidasAvisoHorarios" style="text-align:center; margin-top:10px; display:none;">
+            Se prohíbe la entrada con bebidas (Se cobrará descorche)
+        </p>
 
     </section>
 
@@ -635,6 +656,7 @@
             entreMenu.classList.add('show');
             fdsMenu.classList.remove('show');
             resetAll();
+
             menuWrap.style.visibility = 'visible';
             menuWrap.style.opacity = '1';
             menuWrap.style.height = 'auto';
@@ -645,16 +667,25 @@
             horarios.style.height = 'auto';
             horarios.style.overflow = 'visible';
 
-            horariosInfo.innerHTML = `
-                                                        <h2>Horarios</h2>
-                                                        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-                                                        <p><strong>Menudo:</strong> Todo el día</p>
-                                                        <p><strong>Bebidas:</strong> Todo el día</p>
-                                                        <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
-                                                        <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
-                                                        <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
+            document.getElementById('bebidasAvisoInicio').style.display = 'block';
+            document.getElementById('bebidasAvisoHorarios').style.display = 'none';
 
-                                                    `;
+            horariosInfo.innerHTML = `
+            <h2>Horarios</h2>
+            <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+            <p><strong>Menudo:</strong> Todo el día</p>
+            <p><strong>Bebidas:</strong> Todo el día</p>
+            <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
+            <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
+            <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
+        `;
+
+            // Volvemos a insertar el aviso
+            const aviso = document.getElementById('bebidasAviso');
+            if (aviso) horariosInfo.appendChild(aviso);
+
+            document.getElementById('bebidasAvisoInicio').style.display = 'none';
+            document.getElementById('bebidasAvisoHorarios').style.display = 'block';
         });
 
         fdsBtn.addEventListener('click', () => {
@@ -663,6 +694,7 @@
             fdsMenu.classList.add('show');
             entreMenu.classList.remove('show');
             resetAll();
+
             menuWrap.style.visibility = 'visible';
             menuWrap.style.opacity = '1';
             menuWrap.style.height = 'auto';
@@ -673,12 +705,22 @@
             horarios.style.height = 'auto';
             horarios.style.overflow = 'visible';
 
+            document.getElementById('bebidasAvisoInicio').style.display = 'block';
+            document.getElementById('bebidasAvisoHorarios').style.display = 'none';
+
             horariosInfo.innerHTML = `
-                                        <h2>Horarios</h2>
-                                        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-                                        <p><strong>Pozole y Menudo:</strong> Todo el día</p>
-                                        <p><strong>Bebidas:</strong> Todo el día</p>
-                                                    `;
+            <h2>Horarios</h2>
+            <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+            <p><strong>Pozole y Menudo:</strong> Todo el día</p>
+            <p><strong>Bebidas:</strong> Todo el día</p>
+        `;
+
+            // Volvemos a insertar el aviso
+            const aviso = document.getElementById('bebidasAviso');
+            if (aviso) horariosInfo.appendChild(aviso);
+
+            document.getElementById('bebidasAvisoInicio').style.display = 'none';
+            document.getElementById('bebidasAvisoHorarios').style.display = 'block';
         });
 
         document.querySelectorAll('.sm-btn').forEach(btn => {
