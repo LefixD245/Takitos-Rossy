@@ -27,8 +27,8 @@
                 width: 60px;
                 height: 60px;
                 object-fit: contain;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                border-radius: 70%; /* cambia a 50% para círculo perfecto */
+                box-shadow: 0 0 12px 4px rgba(255, 230, 100, 0.7); /* subí un poco el resplandor para que resalte */
             }
 
         h1 {
@@ -305,19 +305,47 @@
                     margin: 0.25rem 0;
                 }
         }
+
+        .menu-wrap,
+        .horarios,
+        .product-info {
+            visibility: hidden;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, height 0.3s ease;
+        }
+
+        header p.subtitulo {
+            margin: 0;
+            font-size: 1rem;
+            color: #ffcc66; /* un amarillo cálido */
+            font-style: italic;
+            text-shadow: 0 0 5px #aa6600;
+        }
+
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* para centrar el texto */
+        }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <img src="logo.png" alt="Logo Takitos Rossy" />
-        <h1>Takitos Rossy</h1>
+        <div class="title-container">
+            <h1>Takitos Rossy</h1>
+            <p class="subtitulo">Rico menudo y barbacoa</p>
+        </div>
     </header>
 
     <div class="top-section">
         <nav class="nav">
-            <button id="entreBtn" class="active">ENTRE SEMANA</button>
-            <button id="fdsBtn" class="active">FIN DE SEMANA</button>
+            <button id="entreBtn">ENTRE SEMANA</button>
+            <button id="fdsBtn">FIN DE SEMANA</button>
         </nav>
     </div>
 
@@ -540,170 +568,215 @@
 
         </div>
 
-        </div>
+    </div>
 
-        <section class="horarios" id="horariosInfo">
-            <h2>Horarios</h2>
-            <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-            <p><strong>Menudo:</strong> Todo el día</p>
-            <p><strong>Bebidas:</strong> Todo el día</p>
-            <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
-            <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
-            <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
+    <section class="horarios" id="horariosInfo">
+        <h2>Horarios</h2>
+        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+        <p><strong>Menudo:</strong> Todo el día</p>
+        <p><strong>Bebidas:</strong> Todo el día</p>
+        <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
+        <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
+        <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
 
-        </section>
+    </section>
 
-        <div id="prodInfo" class="product-info">
-            <div class="info-flex">
-                <img id="prodImg" src="" alt="" />
-                <div>
-                    <h3 id="prodTitle"></h3>
-                    <p id="prodDesc"></p>
-                </div>
+    <div id="prodInfo" class="product-info">
+        <div class="info-flex">
+            <img id="prodImg" src="" alt="" />
+            <div>
+                <h3 id="prodTitle"></h3>
+                <p id="prodDesc"></p>
             </div>
         </div>
+    </div>
 
-        <script>
-            const entreBtn = document.getElementById('entreBtn'),
-                fdsBtn = document.getElementById('fdsBtn'),
-                entreMenu = document.getElementById('entreMenu'),
-                fdsMenu = document.getElementById('fdsMenu'),
-                prodInfo = document.getElementById('prodInfo'),
-                horariosInfo = document.getElementById('horariosInfo');
+    <script>
+        const menuWrap = document.querySelector('.menu-wrap');
+        const horarios = document.querySelector('.horarios');
 
-            function resetAll(except = null) {
-                document.querySelectorAll('.sm-btn').forEach(btn => {
-                    if (btn !== except && !btn.contains(except) && !(except && except.contains(btn))) {
-                        btn.classList.remove('active');
-                    }
-                });
-                document.querySelectorAll('.sm-content').forEach(content => {
-                    if (!except || (!content.contains(except) && !(except && except.contains(content)))) {
-                        content.classList.remove('show');
-                    }
-                });
-                if (!except) {
-                    prodInfo.classList.remove('show');
-                }
-            }
+        menuWrap.style.visibility = 'hidden';
+        menuWrap.style.opacity = '0';
+        menuWrap.style.height = '0';
+        menuWrap.style.overflow = 'hidden';
 
-            entreBtn.addEventListener('click', () => {
-                entreBtn.classList.add('active');
-                fdsBtn.classList.remove('active');
-                entreMenu.classList.add('show');
-                fdsMenu.classList.remove('show');
-                resetAll();
+        horarios.style.visibility = 'hidden';
+        horarios.style.opacity = '0';
+        horarios.style.height = '0';
+        horarios.style.overflow = 'hidden';
 
-                horariosInfo.innerHTML = `
-                                                <h2>Horarios</h2>
-                                                <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-                                                <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
-                                                <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
-                                                <p><strong>Bebidas:</strong> Todo el día</p>
-                                                <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
-                                                <p><strong>Menudo:</strong> Todo el día</p>
-                                            `;
-            });
 
-            fdsBtn.addEventListener('click', () => {
-                fdsBtn.classList.add('active');
-                entreBtn.classList.remove('active');
-                fdsMenu.classList.add('show');
-                entreMenu.classList.remove('show');
-                resetAll();
+        const entreBtn = document.getElementById('entreBtn'),
+            fdsBtn = document.getElementById('fdsBtn'),
+            entreMenu = document.getElementById('entreMenu'),
+            fdsMenu = document.getElementById('fdsMenu'),
+            prodInfo = document.getElementById('prodInfo'),
+            horariosInfo = document.getElementById('horariosInfo');
 
-                horariosInfo.innerHTML = `
-                                <h2>Horarios</h2>
-                                <p><strong>Tacos y gorditas:</strong> Todo el día</p>
-                                <p><strong>Pozole y menudo:</strong> Todo el día</p>
-                                <p><strong>Bebidas:</strong> Todo el día</p>
-                                            `;
-            });
-
+        function resetAll(except = null) {
             document.querySelectorAll('.sm-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const tgt = btn.dataset.target;
-                    if (!tgt) return;
-                    const el = document.getElementById(tgt);
-                    if (!el) return;
-                    const isActive = btn.classList.contains('active');
-
-                    if (isActive) {
-                        btn.classList.remove('active');
-                        el.classList.remove('show');
-                    } else {
-                        resetAll(btn);
-                        btn.classList.add('active');
-                        el.classList.add('show');
-                    }
-                });
+                if (btn !== except && !btn.contains(except) && !(except && except.contains(btn))) {
+                    btn.classList.remove('active');
+                }
             });
-
-            document.querySelectorAll('.product-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.getElementById('prodTitle').textContent = btn.dataset.title;
-                    document.getElementById('prodDesc').textContent = btn.dataset.desc;
-                    document.getElementById('prodImg').src = btn.dataset.img || '';
-                    prodInfo.classList.add('show');
-                });
+            document.querySelectorAll('.sm-content').forEach(content => {
+                if (!except || (!content.contains(except) && !(except && except.contains(content)))) {
+                    content.classList.remove('show');
+                }
             });
-        </script>
-        <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
-            <div style="position:relative; max-width:90%; max-height:90%; background:#222; padding:1.5rem; border-radius:12px; text-align:center; color:#fff;">
-                <button id="closeLightbox" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; color:#fff; cursor:pointer;">✕</button>
-                <img id="lightboxImg" src="" alt="" style="max-width:300px; max-height:300px; border-radius:8px; margin-bottom:1rem;">
-                <h3 id="lightboxTitle"></h3>
-                <p id="lightboxDesc" style="margin-bottom:1rem;"></p>
-                <div style="display:flex; justify-content:space-between; margin-top:1rem;">
-                    <button id="prevProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">◀</button>
-                    <button id="nextProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">▶</button>
-                </div>
+            if (!except) {
+                prodInfo.classList.remove('show');
+            }
+        }
+
+        entreBtn.addEventListener('click', () => {
+            entreBtn.classList.add('active');
+            fdsBtn.classList.remove('active');
+            entreMenu.classList.add('show');
+            fdsMenu.classList.remove('show');
+            resetAll();
+            menuWrap.style.visibility = 'visible';
+            menuWrap.style.opacity = '1';
+            menuWrap.style.height = 'auto';
+            menuWrap.style.overflow = 'visible';
+
+            horarios.style.visibility = 'visible';
+            horarios.style.opacity = '1';
+            horarios.style.height = 'auto';
+            horarios.style.overflow = 'visible';
+
+            horariosInfo.innerHTML = `
+                                                        <h2>Horarios</h2>
+                                                        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+                                                        <p><strong>Menudo:</strong> Todo el día</p>
+                                                        <p><strong>Bebidas:</strong> Todo el día</p>
+                                                        <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
+                                                        <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
+                                                        <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
+
+                                                    `;
+        });
+
+        fdsBtn.addEventListener('click', () => {
+            fdsBtn.classList.add('active');
+            entreBtn.classList.remove('active');
+            fdsMenu.classList.add('show');
+            entreMenu.classList.remove('show');
+            resetAll();
+            menuWrap.style.visibility = 'visible';
+            menuWrap.style.opacity = '1';
+            menuWrap.style.height = 'auto';
+            menuWrap.style.overflow = 'visible';
+
+            horarios.style.visibility = 'visible';
+            horarios.style.opacity = '1';
+            horarios.style.height = 'auto';
+            horarios.style.overflow = 'visible';
+
+            horariosInfo.innerHTML = `
+                                        <h2>Horarios</h2>
+                                        <p><strong>Tacos y gorditas:</strong> Todo el día</p>
+                                        <p><strong>Pozole y Menudo:</strong> Todo el día</p>
+                                        <p><strong>Bebidas:</strong> Todo el día</p>
+                                                    `;
+        });
+
+        document.querySelectorAll('.sm-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tgt = btn.dataset.target;
+                if (!tgt) return;
+                const el = document.getElementById(tgt);
+                if (!el) return;
+                const isActive = btn.classList.contains('active');
+
+                if (isActive) {
+                    btn.classList.remove('active');
+                    el.classList.remove('show');
+                } else {
+                    resetAll(btn);
+                    btn.classList.add('active');
+                    el.classList.add('show');
+                }
+            });
+        });
+
+        document.querySelectorAll('.product-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('prodTitle').textContent = btn.dataset.title;
+                document.getElementById('prodDesc').textContent = btn.dataset.desc;
+                document.getElementById('prodImg').src = btn.dataset.img || '';
+                prodInfo.classList.add('show');
+            });
+        });
+    </script>
+    <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+        <div style="position:relative; max-width:90%; max-height:90%; background:#222; padding:1.5rem; border-radius:12px; text-align:center; color:#fff;">
+            <button id="closeLightbox" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; color:#fff; cursor:pointer;">✕</button>
+            <img id="lightboxImg" src="" alt="" style="max-width:300px; max-height:300px; border-radius:8px; margin-bottom:1rem;">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDesc" style="margin-bottom:1rem;"></p>
+            <div style="display:flex; justify-content:space-between; margin-top:1rem;">
+                <button id="prevProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">◀</button>
+                <button id="nextProduct" style="background:#444; border:none; padding:0.5rem 1rem; color:#fff; border-radius:6px; cursor:pointer;">▶</button>
             </div>
         </div>
-        <script>
-            let currentBtn = null;
-            let btnList = [];
+    </div>
+    <script>
+        let currentBtn = null;
+        let btnList = [];
 
-            document.querySelectorAll('.product-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    btnList = Array.from(btn.parentElement.querySelectorAll('.product-btn'));
-                    currentBtn = btn;
-                    showLightbox(btn);
-                });
+        document.querySelectorAll('.product-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btnList = Array.from(btn.parentElement.querySelectorAll('.product-btn'));
+                currentBtn = btn;
+                showLightbox(btn);
             });
+        });
 
-            function showLightbox(btn) {
-                document.getElementById('lightboxTitle').textContent = btn.dataset.title;
-                document.getElementById('lightboxDesc').textContent = btn.dataset.desc;
-                document.getElementById('lightboxImg').src = btn.dataset.img;
-                document.getElementById('lightbox').style.display = 'flex';
-            }
+        function showLightbox(btn) {
+            document.getElementById('lightboxTitle').textContent = btn.dataset.title;
+            document.getElementById('lightboxDesc').textContent = btn.dataset.desc;
+            document.getElementById('lightboxImg').src = btn.dataset.img;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
 
-            document.getElementById('closeLightbox').addEventListener('click', () => {
+        document.getElementById('closeLightbox').addEventListener('click', () => {
+            document.getElementById('lightbox').style.display = 'none';
+            currentBtn = null;
+        });
+
+        document.getElementById('prevProduct').addEventListener('click', () => {
+            if (!currentBtn || btnList.length === 0) return;
+            const idx = btnList.indexOf(currentBtn);
+            if (idx > 0) {
+                currentBtn = btnList[idx - 1];
+                showLightbox(currentBtn);
+            } else {
+                // Si ya está en el primer producto, cerrar
                 document.getElementById('lightbox').style.display = 'none';
                 currentBtn = null;
-            });
+            }
+        });
 
-            document.getElementById('prevProduct').addEventListener('click', () => {
-                if (!currentBtn || btnList.length === 0) return;
-                const idx = btnList.indexOf(currentBtn);
-                if (idx > 0) {
-                    currentBtn = btnList[idx - 1];
-                    showLightbox(currentBtn);
-                }
-            });
+        document.getElementById('nextProduct').addEventListener('click', () => {
+            if (!currentBtn || btnList.length === 0) return;
+            const idx = btnList.indexOf(currentBtn);
+            if (idx < btnList.length - 1) {
+                currentBtn = btnList[idx + 1];
+                showLightbox(currentBtn);
+            } else {
+                document.getElementById('lightbox').style.display = 'none';
+                currentBtn = null;
+            }
+        });
 
-            document.getElementById('nextProduct').addEventListener('click', () => {
-                if (!currentBtn || btnList.length === 0) return;
-                const idx = btnList.indexOf(currentBtn);
-                if (idx < btnList.length - 1) {
-                    currentBtn = btnList[idx + 1];
-                    showLightbox(currentBtn);
-                } else {
-                    document.getElementById('lightbox').style.display = 'none';
-                    currentBtn = null;
-                }
-            });
-        </script>
+        // Cierra el lightbox si se hace clic fuera del contenido
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                document.getElementById('lightbox').style.display = 'none';
+                currentBtn = null;
+            }
+        });
+    </script>
 </body>
 </html>
