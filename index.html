@@ -613,64 +613,53 @@
     </div>
 
     <script>
-        const menuWrap = document.querySelector('.menu-wrap');
-        const horarios = document.querySelector('.horarios');
+    const menuWrap = document.querySelector('.menu-wrap');
+    const horarios = document.querySelector('.horarios');
 
-        menuWrap.style.visibility = 'hidden';
-        menuWrap.style.opacity = '0';
-        menuWrap.style.height = '0';
-        menuWrap.style.overflow = 'hidden';
+    menuWrap.style.visibility = 'hidden';
+    menuWrap.style.opacity = '0';
+    menuWrap.style.height = '0';
+    menuWrap.style.overflow = 'hidden';
 
-        horarios.style.visibility = 'hidden';
-        horarios.style.opacity = '0';
-        horarios.style.height = '0';
-        horarios.style.overflow = 'hidden';
+    horarios.style.visibility = 'hidden';
+    horarios.style.opacity = '0';
+    horarios.style.height = '0';
+    horarios.style.overflow = 'hidden';
 
+    const entreBtn = document.getElementById('entreBtn'),
+        fdsBtn = document.getElementById('fdsBtn'),
+        entreMenu = document.getElementById('entreMenu'),
+        fdsMenu = document.getElementById('fdsMenu'),
+        prodInfo = document.getElementById('prodInfo'),
+        horariosInfo = document.getElementById('horariosInfo'),
+        avisoBebidas = document.getElementById('bebidasAvisoHorarios');
 
-        const entreBtn = document.getElementById('entreBtn'),
-            fdsBtn = document.getElementById('fdsBtn'),
-            entreMenu = document.getElementById('entreMenu'),
-            fdsMenu = document.getElementById('fdsMenu'),
-            prodInfo = document.getElementById('prodInfo'),
-            horariosInfo = document.getElementById('horariosInfo');
-
-        function resetAll(except = null) {
-            document.querySelectorAll('.sm-btn').forEach(btn => {
-                if (btn !== except && !btn.contains(except) && !(except && except.contains(btn))) {
-                    btn.classList.remove('active');
-                }
-            });
-            document.querySelectorAll('.sm-content').forEach(content => {
-                if (!except || (!content.contains(except) && !(except && except.contains(content)))) {
-                    content.classList.remove('show');
-                }
-            });
-            if (!except) {
-                prodInfo.classList.remove('show');
+    function resetAll(except = null) {
+        document.querySelectorAll('.sm-btn').forEach(btn => {
+            if (btn !== except && !btn.contains(except) && !(except && except.contains(btn))) {
+                btn.classList.remove('active');
             }
+        });
+        document.querySelectorAll('.sm-content').forEach(content => {
+            if (!except || (!content.contains(except) && !(except && except.contains(content)))) {
+                content.classList.remove('show');
+            }
+        });
+        if (!except) {
+            prodInfo.classList.remove('show');
         }
+    }
 
-        entreBtn.addEventListener('click', () => {
-            entreBtn.classList.add('active');
-            fdsBtn.classList.remove('active');
-            entreMenu.classList.add('show');
-            fdsMenu.classList.remove('show');
-            resetAll();
+    function actualizarHorarios(tipo) {
+        // Borra todos los hijos de horariosInfo EXCEPTO el aviso
+        Array.from(horariosInfo.children).forEach(el => {
+            if (el.id !== 'bebidasAvisoHorarios') {
+                horariosInfo.removeChild(el);
+            }
+        });
 
-            menuWrap.style.visibility = 'visible';
-            menuWrap.style.opacity = '1';
-            menuWrap.style.height = 'auto';
-            menuWrap.style.overflow = 'visible';
-
-            horarios.style.visibility = 'visible';
-            horarios.style.opacity = '1';
-            horarios.style.height = 'auto';
-            horarios.style.overflow = 'visible';
-
-            document.getElementById('bebidasAvisoInicio').style.display = 'block';
-            document.getElementById('bebidasAvisoHorarios').style.display = 'none';
-
-            horariosInfo.innerHTML = `
+        const contenido = document.createElement('div');
+        contenido.innerHTML = (tipo === 'entre') ? `
             <h2>Horarios</h2>
             <p><strong>Tacos y gorditas:</strong> Todo el día</p>
             <p><strong>Menudo:</strong> Todo el día</p>
@@ -678,79 +667,85 @@
             <p><strong>Desayunos:</strong> 5:30am - 12:00pm</p>
             <p><strong>Platillos:</strong> 10:30am - 3:30pm</p>
             <p><strong>Mariscos:</strong> 10:30am - 3:30pm</p>
-        `;
-
-            // Volvemos a insertar el aviso
-            const aviso = document.getElementById('bebidasAviso');
-            if (aviso) horariosInfo.appendChild(aviso);
-
-            document.getElementById('bebidasAvisoInicio').style.display = 'none';
-            document.getElementById('bebidasAvisoHorarios').style.display = 'block';
-        });
-
-        fdsBtn.addEventListener('click', () => {
-            fdsBtn.classList.add('active');
-            entreBtn.classList.remove('active');
-            fdsMenu.classList.add('show');
-            entreMenu.classList.remove('show');
-            resetAll();
-
-            menuWrap.style.visibility = 'visible';
-            menuWrap.style.opacity = '1';
-            menuWrap.style.height = 'auto';
-            menuWrap.style.overflow = 'visible';
-
-            horarios.style.visibility = 'visible';
-            horarios.style.opacity = '1';
-            horarios.style.height = 'auto';
-            horarios.style.overflow = 'visible';
-
-            document.getElementById('bebidasAvisoInicio').style.display = 'block';
-            document.getElementById('bebidasAvisoHorarios').style.display = 'none';
-
-            horariosInfo.innerHTML = `
+        ` : `
             <h2>Horarios</h2>
             <p><strong>Tacos y gorditas:</strong> Todo el día</p>
             <p><strong>Pozole y Menudo:</strong> Todo el día</p>
             <p><strong>Bebidas:</strong> Todo el día</p>
         `;
+        
+        // Insertamos el nuevo contenido antes del aviso
+        horariosInfo.insertBefore(contenido, avisoBebidas);
+    }
 
-            // Volvemos a insertar el aviso
-            const aviso = document.getElementById('bebidasAviso');
-            if (aviso) horariosInfo.appendChild(aviso);
+    entreBtn.addEventListener('click', () => {
+        entreBtn.classList.add('active');
+        fdsBtn.classList.remove('active');
+        entreMenu.classList.add('show');
+        fdsMenu.classList.remove('show');
+        resetAll();
 
-            document.getElementById('bebidasAvisoInicio').style.display = 'none';
-            document.getElementById('bebidasAvisoHorarios').style.display = 'block';
+        menuWrap.style.visibility = 'visible';
+        menuWrap.style.opacity = '1';
+        menuWrap.style.height = 'auto';
+        menuWrap.style.overflow = 'visible';
+
+        horarios.style.visibility = 'visible';
+        horarios.style.opacity = '1';
+        horarios.style.height = 'auto';
+        horarios.style.overflow = 'visible';
+
+        actualizarHorarios('entre');
+    });
+
+    fdsBtn.addEventListener('click', () => {
+        fdsBtn.classList.add('active');
+        entreBtn.classList.remove('active');
+        fdsMenu.classList.add('show');
+        entreMenu.classList.remove('show');
+        resetAll();
+
+        menuWrap.style.visibility = 'visible';
+        menuWrap.style.opacity = '1';
+        menuWrap.style.height = 'auto';
+        menuWrap.style.overflow = 'visible';
+
+        horarios.style.visibility = 'visible';
+        horarios.style.opacity = '1';
+        horarios.style.height = 'auto';
+        horarios.style.overflow = 'visible';
+
+        actualizarHorarios('fds');
+    });
+
+    document.querySelectorAll('.sm-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tgt = btn.dataset.target;
+            if (!tgt) return;
+            const el = document.getElementById(tgt);
+            if (!el) return;
+            const isActive = btn.classList.contains('active');
+
+            if (isActive) {
+                btn.classList.remove('active');
+                el.classList.remove('show');
+            } else {
+                resetAll(btn);
+                btn.classList.add('active');
+                el.classList.add('show');
+            }
         });
+    });
 
-        document.querySelectorAll('.sm-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tgt = btn.dataset.target;
-                if (!tgt) return;
-                const el = document.getElementById(tgt);
-                if (!el) return;
-                const isActive = btn.classList.contains('active');
-
-                if (isActive) {
-                    btn.classList.remove('active');
-                    el.classList.remove('show');
-                } else {
-                    resetAll(btn);
-                    btn.classList.add('active');
-                    el.classList.add('show');
-                }
-            });
+    document.querySelectorAll('.product-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.getElementById('prodTitle').textContent = btn.dataset.title;
+            document.getElementById('prodDesc').textContent = btn.dataset.desc;
+            document.getElementById('prodImg').src = btn.dataset.img || '';
+            prodInfo.classList.add('show');
         });
-
-        document.querySelectorAll('.product-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('prodTitle').textContent = btn.dataset.title;
-                document.getElementById('prodDesc').textContent = btn.dataset.desc;
-                document.getElementById('prodImg').src = btn.dataset.img || '';
-                prodInfo.classList.add('show');
-            });
-        });
-    </script>
+    });
+</script>
     <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
         <div style="position:relative; max-width:90%; max-height:90%; background:#222; padding:1.5rem; border-radius:12px; text-align:center; color:#fff;">
             <button id="closeLightbox" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; color:#fff; cursor:pointer;">✕</button>
